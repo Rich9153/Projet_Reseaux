@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #define SERVER_IP "127.0.0.1"
 #define PORT 8080
@@ -39,7 +40,10 @@ int main() {
     printf("Devinez un nombre entre 1 et 100 !\n");
 
     // Boucle de 10 tentatives
-    for (int tentative = 10; tentative > 0; tentative--) {
+    int tentative = 10; // Nombre de tentatives
+    bool trouve = false; // Variable pour indiquer si le nombre est trouvé
+
+    while (tentative > 0 && !trouve) {
         printf("Il vous reste %d tentatives. Entrez un nombre : ", tentative);
         fgets(buffer, BUFFER_SIZE, stdin);
 
@@ -59,13 +63,19 @@ int main() {
         }
 
         buffer[received_bytes] = '\0'; // Assurer la terminaison correcte de la chaîne
+
+        // Suppression des sauts de ligne de la réponse du serveur
+        buffer[strcspn(buffer, "\r\n")] = 0;
+
         printf("Réponse du serveur : %s\n", buffer);
 
         // Vérifier si le nombre est trouvé
-        if (strcmp(buffer, "Bravo\n") == 0 || strcmp(buffer, "trouvé") == 0) {
+        if (strcmp(buffer, "Bravo") == 0) {
             printf("🎉 Félicitations, vous avez trouvé le nombre ! 🎉\n");
-            break; // Quitter la boucle
+            trouve = true;  // Sortira de la boucle
         }
+
+        tentative--; // Décrémentation du nombre de tentatives
     }
 
     printf("Fin du jeu. Merci d'avoir joué !\n");
