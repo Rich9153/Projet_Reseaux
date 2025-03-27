@@ -21,7 +21,7 @@ void *handleMessage(void *arg) {
     int number = data->number;
     char buffer[BUFFER_SIZE] = {0};
     int cpt = 10;
-    char *message;
+    char *message = "";
     
     while (cpt > 0 && message != "Bravo") {
         cpt --;
@@ -53,6 +53,7 @@ void *handleMessage(void *arg) {
 
         // Envoyer la réponse au client
         send(client_socket, message, strlen(message), 0);
+        if (message == "Bravo") break;
     }
 
     // Fermer le socket du client et libérer la mémoire
@@ -118,7 +119,7 @@ int main() {
         }
 
         // Détacher le thread
-        pthread_detach(thread_id);
+        pthread_join(thread_id,NULL);
     }
 
     // Fermer le socket du serveur
