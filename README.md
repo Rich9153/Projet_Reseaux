@@ -11,7 +11,7 @@ Un serveur génère un nombre aléatoire entre 1 et 100, et plusieurs clients pe
 - Reçoit les propositions des clients et renvoie :
   - `"Trop haut"`
   - `"Trop bas"`
-  - `"Correct"`
+  - `"Bravo"`
 - Annonce le gagnant et termine la partie pour tous.
 
 ### ✅ Client de jeu :
@@ -21,7 +21,6 @@ Un serveur génère un nombre aléatoire entre 1 et 100, et plusieurs clients pe
 
 ### ✅ Communication en temps réel :
 - Réponses immédiates du serveur après chaque proposition.
-- Tous les clients sont informés dès qu’un joueur gagne.
 
 ### ✅ Gestion des erreurs :
 - Détection des déconnexions inattendues côté client/serveur.
@@ -34,9 +33,14 @@ Un serveur génère un nombre aléatoire entre 1 et 100, et plusieurs clients pe
 - Linux (Ubuntu recommandé)
 
 ## 🚀 Pour exécuter le projet
+Nous avons une version du server executable sur Windows (voir winSever.c)
 
 ### 1. Compiler les fichiers
 
-```bash
-gcc -o serveur serveur.c
-gcc -o client client.c
+```bash (sur Linux) facultatif vue que que les executables sont dejà disponibles
+gcc server_dev.c -o server
+gcc client.c -o client
+
+###2. Lancer le programme
+./server 
+./client
