@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 #define SERVER_IP "127.0.0.1"
-#define PORT 8080
+#define PORT 49669
 #define BUFFER_SIZE 1024
 
 int main() {
